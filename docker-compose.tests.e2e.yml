@@ -1,0 +1,9 @@
+version: '3.4'
+services:
+  despesas-frontend-angular-test-e2e:
+    container_name: tests-playwright-e2e
+    image: despesas-frontend-angular-test-e2e-tests-img
+    build:
+      context: .
+      dockerfile: ./DockerFile-tests-e2e
+    command: ["pytest"]

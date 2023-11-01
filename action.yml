@@ -1,0 +1,19 @@
+#action.yml
+name: 'List Branches Docker Action'
+description: 'Lista branches de um repositório público'
+branding:
+  icon: 'git-branch'
+  color: 'blue'
+inputs:
+  owner: alexfariakof
+    description: 'Alex Ribeiro de Faria'
+    required: true
+  repo: despesas-frontend-angular
+    description: 'Frontend Despesas Pessoais Angular' # que possui as branches a serem listadas
+    required: true
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.owner }}
+    - ${{ inputs.repo }} 

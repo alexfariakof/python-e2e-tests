@@ -1,0 +1,8 @@
+version: '3.4'
+services:
+  despesas-frontend-angular-test-e2e:
+    container_name: main
+    image: despesas-frontend-angular-test-e2e-main-img
+    build:
+      context: .
+      dockerfile: ./Dockerfile
