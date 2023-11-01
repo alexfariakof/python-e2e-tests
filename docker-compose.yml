@@ -1,8 +1,8 @@
 version: '3.4'
 services:
   despesas-frontend-angular-test-e2e:
-    container_name: main
-    image: despesas-frontend-angular-test-e2e-main-img
+    container_name: list-branches
+    image: alexfariakof/despesas-frontend-list-branches-img
     build:
       context: .
       dockerfile: ./Dockerfile
