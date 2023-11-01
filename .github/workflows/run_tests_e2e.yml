@@ -15,6 +15,3 @@ jobs:
       - name: Run Playwright Tests        
         id: tests
         uses: alexfariakof/despesas-frontend-angular-tests-e2e@main        
-        with:
-          owner: 'alexfariakof'
-          repo: 'despesas-frontend-angular-tests-e2e'           
