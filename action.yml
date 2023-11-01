@@ -18,4 +18,4 @@ runs:
       shell: bash 
       run: |
       cd /app
-      docker-compose -f app/docker-compose.tests.e2e.yml up
+      docker-compose -f ./docker-compose.tests.e2e.yml up
