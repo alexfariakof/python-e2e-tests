@@ -33,7 +33,7 @@ jobs:
         mkdir -p ~/packages/cache
         python -m pip install --upgrade pip
         pip install pytest pytest-playwright
-        apt-get install -y chromium
+        playwright install
   
     - name: Test e2e with playwright
       run: pytest
