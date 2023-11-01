@@ -8,6 +8,9 @@ on:
       - main
 jobs:
   build:
+    strategy:
+      matrix:
+        browser: [firefox, chrome, ie, webkit, safari, edge]
     runs-on: ubuntu-latest
     steps:
           
@@ -25,4 +28,16 @@ jobs:
   
     - name: Test e2e with playwright
       run: |
-        pytest
+        if [ "${{ matrix.browser }}" == "firefox" ]; then
+          pytest --browser firefox
+        elif [ "${{ matrix.browser }}" == "chrome" ]; then
+          pytest --browser chromium
+        elif [ "${{ matrix.browser }}" == "ie" ]; then
+          pytest --browser webkit
+        elif [ "${{ matrix.browser }}" == "safari" ]; then
+          pytest --browser safari
+        elif [ "${{ matrix.browser }}" == "edge" ]; then
+          pytest --browser webkit
+        else
+          echo "Unsupported browser: ${{ matrix.browser }}"
+        fi
