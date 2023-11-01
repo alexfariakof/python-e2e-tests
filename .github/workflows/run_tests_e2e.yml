@@ -11,11 +11,13 @@ jobs:
   List-Branches:
     runs-on: ubuntu-latest
     name: Job Run Playwright Tests
+    
     steps:
-      - name: Run Playwright Tests
+      
+      - name: Run Playwright Tests        
         id: tests
-        uses: alexfariakof/despesas-frontend-angular-tests-e2e@main
+        uses: alexfariakof/despesas-frontend-angular-tests-e2e@main        
         with:
           owner: 'alexfariakof'
-          repo: 'despesas-frontend-angular-tests-e2e'
-          config-file: action_tests.yml
+          repo: 'despesas-frontend-angular-tests-e2e'        
+          

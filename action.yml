@@ -1,19 +1,19 @@
-#action.yml
-name: List Branches Docker Action
-description: Lista branches de um repositório público
+#action_tests.yml
+name: Run Playwright Test In Main Brnch Using Docker Action
+description: Run Playwright Test In Main Brnch Using Docker Action
 branding:
   icon: 'git-branch'
-  color: red
+  color: green
 inputs:
   owner:
     description: 'alexfariakof'
     required: true
   repo:
-    description: 'despesas-frontend-angular'
+    description: 'despesas-frontend-angular-tests-e2e'
     required: true
 runs:
   using: 'docker'
-  image:  'docker://alexfariakof/despesas-frontend-list-branches-img:v1.0'
+  image:  'docker://alexfariakof/despesas-frontend-angular-test-e2e-tests-img:v1.0'
   args:
     - ${{ inputs.owner }}
-    - ${{ inputs.repo }} 
+    - ${{ inputs.repo }}   
