@@ -33,4 +33,5 @@ jobs:
         playwright install
   
     - name: Test e2e with playwright
-      run: pytest
+      run: |
+        pytest
