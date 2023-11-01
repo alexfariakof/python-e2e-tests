@@ -7,14 +7,27 @@ on:
     branches:
       - main
     
+permissions:
+  contents: read
 jobs:
-  Run-Tests-e2e:
+  build:
     runs-on: ubuntu-latest
-    name: Job Run Playwright Tests    
-    steps:      
-      - name: Run Playwright Tests        
-        id: tests
-        uses: alexfariakof/despesas-frontend-angular-tests-e2e@v1
-        with:
-          owner: 'alexfariakof'
-          repo: 'despesas-frontend-angular-tests-e2e'           
+    steps:
+          
+    - uses: actions/checkout@v3
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.10"
+          
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pytest pytest-playwright
+        playwright install
+        apt-get update 
+        apt-get install -y chromium             
+      continue-on-error: false
+
+    - name: Test e2e with playwright
+      run: pytest
