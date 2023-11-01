@@ -17,5 +17,5 @@ runs:
     - name: Run Tests with Playwright      
       shell: bash 
       run: |
-      cd /app
-      docker-compose -f ./docker-compose.tests.e2e.yml up
+        cd /app
+        docker-compose -f ./docker-compose.tests.e2e.yml up
