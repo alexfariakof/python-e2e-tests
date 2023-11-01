@@ -23,14 +23,14 @@ jobs:
       uses: actions/cache@v3
       id: cache
       with:
-        path: ~/packages/cache
+        path: ~/__pycache__
         key: ${{ runner.os }}-python-${{ hashFiles('**/*.lock') }}
         restore-keys: ${{ runner.os }}-python-
   
     - name: Create if not Exist Cache Packages
       if: steps.cache.outputs.cache-hit != 'true'
       run: |
-        mkdir -p ~/packages/cache
+        mkdir -p ~/__pycache__
         python -m pip install --upgrade pip
         pip install pytest pytest-playwright
         playwright install
