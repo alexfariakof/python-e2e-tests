@@ -2,3 +2,6 @@ git add .
 git commit -m "Initial files project Test"
 git tag -a v1 -m "Primeira versão  tag"
 git push --follow-tags
+
+
+git tag -d v1 

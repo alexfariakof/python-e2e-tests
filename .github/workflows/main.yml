@@ -9,7 +9,7 @@ jobs:
     steps:
       - name: Listar Branches action step
         id: list
-        uses: alexfariakof/despesas-frontend-angular-tests-e2e-action@v1
+        uses: alexfariakof/despesas-frontend-angular-tests-e2e@v1
         with:
           owner: 'alexfariakof'
           repo: 'despesas-frontend-angular'
