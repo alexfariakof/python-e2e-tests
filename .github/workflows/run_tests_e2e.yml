@@ -17,15 +17,24 @@ jobs:
     - name: Set up Python 3.10
       uses: actions/setup-python@v3
       with:
-        python-version: "3.10"
-          
-    - name: Install dependencies
+        python-version: "3.10"    
+      
+    - name: Cache Python Dependencies
+      uses: actions/cache@v3
+      id: cache
+      with:
+        path: ~/packages/cache
+        key: ${{ runner.os }}-python-${{ hashFiles('**/*.lock') }}
+        restore-keys: ${{ runner.os }}-python-
+  
+    - name: Create if not Exist Cache Packages
+      if: steps.cache.outputs.cache-hit != 'true'
       run: |
+        mkdir -p ~/packages/cache
         python -m pip install --upgrade pip
         pip install pytest pytest-playwright
-        apt-get update 
-        apt-get install -y chromium             
-      continue-on-error: false
-
+        apt-get update
+        apt-get install -y chromium
+  
     - name: Test e2e with playwright
       run: pytest
