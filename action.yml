@@ -16,4 +16,6 @@ runs:
   steps:
     - name: Run Tests with Playwright      
       shell: bash 
-      run: docker-compose -f $GITHUB_WORKSPACE/docker-compose.tests.e2e.yml up
+      run: |
+        ls 
+        docker-compose -f $GITHUB_WORKSPACE/docker-compose.tests.e2e.yml up
