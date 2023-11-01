@@ -12,8 +12,8 @@ inputs:
     description: 'despesas-frontend-angular-tests-e2e'
     required: true
 runs:
-  using: 'composite'
-  shell: bash 
+  using: 'composite'  
   steps:
     - name: Run Tests with Playwright      
+      shell: bash 
       run: docker-compose -f ./docker-compose.tests.e2e.yml up
