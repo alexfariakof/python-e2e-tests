@@ -1,8 +1,11 @@
 version: '3.4'
 services:
   despesas-frontend-angular-test-e2e:
-    container_name: list-branches
-    image: alexfariakof/despesas-frontend-list-branches-img
+    container_name: tests-playwright-e2e
+    image: alexfariakof/despesas-frontend-angular-test-e2e-tests-img    
     build:
       context: .
-      dockerfile: ./Dockerfile
+      dockerfile: ./Dockerfile-tests-e2e
+    volumes: 
+      - ./:/app
+    command: ["pytest"]
