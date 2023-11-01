@@ -13,7 +13,7 @@ inputs:
     required: true
 runs:
   using: 'docker'
-  image: 'Dockerfile'
+  image:  'docker://alexfariakof/despesas-frontend-angular:v1'
   args:
     - ${{ inputs.owner }}
     - ${{ inputs.repo }} 
