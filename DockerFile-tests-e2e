@@ -8,6 +8,4 @@ RUN playwright install
 RUN apt-get update 
 RUN apt-get install -y chromium
 
-COPY ./__tests__ /app/
-
 CMD ["pytest"]

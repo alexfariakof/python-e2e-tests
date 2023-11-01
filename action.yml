@@ -12,5 +12,7 @@ inputs:
     description: 'despesas-frontend-angular-tests-e2e'
     required: true
 runs:
-  using: 'docker'
-  image:  'docker://alexfariakof/despesas-frontend-angular-test-e2e-tests-img:v1.0'
+  using: 'composite'
+   steps:
+    - name: Run Tests with Playwright
+      run: docker-compose up

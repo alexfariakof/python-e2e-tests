@@ -6,4 +6,6 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile-tests-e2e
+    volumes: 
+      - ./:/app
     command: ["pytest"]

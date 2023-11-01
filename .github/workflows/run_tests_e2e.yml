@@ -8,16 +8,13 @@ on:
       - main
     
 jobs:
-  List-Branches:
+  Run-Tests-e2e:
     runs-on: ubuntu-latest
-    name: Job Run Playwright Tests
-    
-    steps:
-      
+    name: Job Run Playwright Tests    
+    steps:      
       - name: Run Playwright Tests        
         id: tests
         uses: alexfariakof/despesas-frontend-angular-tests-e2e@main        
         with:
           owner: 'alexfariakof'
-          repo: 'despesas-frontend-angular-tests-e2e'        
-          
+          repo: 'despesas-frontend-angular-tests-e2e'           
