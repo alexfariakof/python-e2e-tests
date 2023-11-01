@@ -19,4 +19,4 @@ runs:
       run: |
         cd $GITHUB_WORKSPACE
         cd ..
-        docker-compose -f despesas-frontend-angular-tests-e2e/docker-compose.tests.e2e.yml up
+        docker-compose -f docker-compose.tests.e2e.yml up
