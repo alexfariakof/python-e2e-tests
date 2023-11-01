@@ -1,0 +1,1 @@
+docker tag alexfariakof/despesas-frontend-list-branches-img:latest alexfariakof/despesas-frontend-list-branches-img:v1.0
