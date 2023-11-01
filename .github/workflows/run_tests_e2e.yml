@@ -58,5 +58,5 @@ jobs:
         elif [ "${{ matrix.browser }}" == "edge" ]; then
           pytest --browser webkit
         else
-          echo "Unsupported browser: ${{ matrix.browser }}"
+          pytest
         fi
