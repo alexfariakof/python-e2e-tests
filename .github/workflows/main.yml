@@ -1,0 +1,15 @@
+on:
+  push:
+    branches: [ main ]
+    
+jobs:
+  List-Branches:
+    runs-on: ubuntu-latest
+    name: Job para listar Branches de repositório GitHub
+    steps:
+      - name: Listar Branches action step
+        id: list
+        uses: alexfariakof/list-branches-docker-action@v1
+        with:
+          owner: 'alexfariakof'
+          repo: 'despesas-frontend-angular'
