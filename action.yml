@@ -5,15 +5,15 @@ branding:
   icon: 'git-branch'
   color: 'blue'
 inputs:
-  owner: alexfariakof
+  owner:
     description: 'alexfariakof'
     required: true
-  repo: despesas-frontend-angular
+  repo:
     description: 'despesas-frontend-angular'
     required: true
 runs:
-  using: docker
-  image: Dockerfile
+  using: 'docker'
+  image: 'Dockerfile'
   args:
     - ${{ inputs.owner }}
     - ${{ inputs.repo }} 
