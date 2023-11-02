@@ -1,0 +1,14 @@
+version: '3.4'
+services:
+  despesas-frontend-angular:
+    container_name: test-e2e-playwright
+    image: alexfariakof/despesas-frontend-angular-test-e2e-img    
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    volumes: 
+      - ./:/app
+    command: >
+      sh -c "./entrypoint.sh"
+
+    

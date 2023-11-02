@@ -1,8 +1,17 @@
-#Imagem de contêiner que executa o código da action
-FROM python:3.8-alpine
+FROM python:3.8-slim
 
-RUN pip install requests
+WORKDIR /app
+RUN echo '#!/bin/sh' > entrypoint.sh && \
+    echo 'pytest' >> entrypoint.sh && \
+    echo 'pytest --browser firefox' >> entrypoint.sh && \
+    echo 'pytest --browser chromium' >> entrypoint.sh && \
+    echo 'if [ $? -eq 0 ]; then exit 0; else exit 1; fi' >> entrypoint.sh && \
+    chmod +x entrypoint.sh
+COPY . ./app
 
-COPY main.py /main.py
+RUN pip install --upgrade pip
+RUN pip install pytest pytest-playwright
+RUN playwright install
+RUN playwright install-deps
 
-ENTRYPOINT ["python", "/main.py"]
+CMD ["./entrypoint.sh"]

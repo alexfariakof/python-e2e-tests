@@ -1,3 +1,0 @@
-docker tag alexfariakof/despesas-frontend-list-branches-img:latest alexfariakof/despesas-frontend-list-branches-img:v1.0
-
-docker tag alexfariakof/despesas-frontend-angular-test-e2e-tests-img:latest alexfariakof/despesas-frontend-angular-test-e2e-tests-img:v1.0

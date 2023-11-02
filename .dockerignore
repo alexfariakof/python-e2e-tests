@@ -28,3 +28,5 @@ README.md
 **/.documents
 **/.pytest_cache
 **/__tests__/__pycache__
+**/coverage
+despesas-frontend-angular-tests-e2e.code-workspace
