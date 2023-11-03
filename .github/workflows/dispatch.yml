@@ -1,0 +1,14 @@
+name: Dispatch Workflow
+on:
+  repository_dispatch:
+    types: [trigger-python-tests]
+jobs:
+  dispatch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger External Workflow
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          repository: alexfariakof/despesas-frontend-angular
+          token: ${{ secrets.GITHUB_TOKEN }}
+          event-type: trigger-python-tests
