@@ -5,7 +5,7 @@ on:
 
 jobs:
   Triggered-Tests-E2E:
-    name : Triggered Tests E2E
+    name : Tests E2E IN ${{ matrix.browser }}
     outputs:
       run_id: ${{ steps.get_run_id.outputs.run_id }}
     strategy:
