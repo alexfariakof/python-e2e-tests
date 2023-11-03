@@ -52,7 +52,7 @@ jobs:
           fi
 
   Response-Triggered-Tests-E2E:
-    needs: Triggered-Tests-E2E
+    needs: Run-Tests-E2E
     name : Response Triggered Tests E2E
     runs-on: ubuntu-latest  
     outputs:
