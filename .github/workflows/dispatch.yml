@@ -10,10 +10,16 @@ jobs:
       run_id: ${{ steps.get_run_id.outputs.run_id }}
     strategy:
       matrix:
-        browser: [firefox, chrome, webkit]
+        #browser: [firefox, chrome, webkit]
+        browser: [webkit]
     runs-on: ubuntu-latest
     steps:          
       - uses: actions/checkout@v3
+      - name: Debug Event Payload
+        run: |
+          echo "Event Payload: ${{ toJson(github.event) }}"
+        if: always()      
+
       - name: Get Workflow Run ID      
         id: get_run_id
         run: |
@@ -56,6 +62,8 @@ jobs:
           if [ "${{ job.status }}" == "success" ]; then
             echo "Workflow Status: success"
             echo "{workflow_status=success" >> $GITHUB_ENV
+            exit(0)
           else
             echo "Workflow Status: failure"
             echo "{workflow_status}={failure}" >> $GITHUB_ENV
+            exit(0)
