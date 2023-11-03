@@ -6,18 +6,14 @@ on:
 jobs:
   Triggered-Tests-E2E:
     runs-on: ubuntu-latest  
+    outputs:
+      run_id: ${{ steps.get_run_id.outputs.run_id }}
     steps:                  
-      - name: Set Workflow Run ID
-        id: set_run_id
+      - name: Get Workflow ID
+        id: get_run_id
         run: |
           echo "Workflow Run ID: ${{ github.run_id }}"
-          echo ${{ github.run_id }} > run_id-${{ github.event.client_payload.father_workflow_id }}.txt
-
-      - name: Upload Workflow Run ID
-        uses: actions/upload-artifact@v2
-        with:
-          name: run_id-${{ github.event.client_payload.father_workflow_id }}
-          path: run_id-${{ github.event.client_payload.father_workflow_id }}.txt
+          echo "run_id=${{ github.run_id }}" >> $GITHUB_OUTPUT
 
   Run-Tests-E2E:
     needs: Triggered-Tests-E2E
