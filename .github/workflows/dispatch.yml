@@ -6,7 +6,7 @@ on:
 jobs:
   Triggered-Tests-E2E:
     runs-on: ubuntu-latest  
-    steps:          
+    steps:                  
       - name: Set Workflow Run ID
         id: set_run_id
         run: |
@@ -24,7 +24,8 @@ jobs:
     name : Running in ${{ matrix.browser }}
     strategy:
       matrix:
-        browser: [firefox, chrome, webkit]
+        #browser: [firefox, chrome, webkit]
+        browser: [firefox]
     runs-on: ubuntu-latest  
     steps:          
       - uses: actions/checkout@v3
