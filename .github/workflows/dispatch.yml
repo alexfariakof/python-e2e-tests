@@ -49,6 +49,7 @@ jobs:
     name : Response Triggered Tests E2E
     runs-on: ubuntu-latest  
     steps:
+      - uses: actions/checkout@v3      
       - name: Set Workflow Status
         id: response_tests_e2e
         run: |
