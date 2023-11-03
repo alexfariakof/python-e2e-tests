@@ -53,7 +53,4 @@ jobs:
       - name: Set Workflow Status
         id: response_tests_e2e
         run: |
-          if [ "${{ job.status }}" == 'success' ]; then
-            echo "workflow_status=success" >> $GITHUB_OUTPUT
-          else
-            echo "workflow_status=failure" >> $GITHUB_OUTPUT
+          echo "workflow_status=${{ job.status }}" >> $GITHUB_OUTPUT
