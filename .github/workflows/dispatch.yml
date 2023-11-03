@@ -8,14 +8,13 @@ jobs:
     name : Triggered Tests E2E
     outputs:
       run_id: ${{ steps.get_run_id.outputs.run_id }}
-      workflow_status: ${{ steps.run_tests_e2e.outputs.workflow_status }}
     strategy:
       matrix:
         browser: [firefox, chrome, webkit]
     runs-on: ubuntu-latest
     steps:          
       - name: Get Workflow Run ID
-        id: Starting_e2e_Test_Execution
+        id: get_run_id
         run: |
           run_id=$(echo "${{ github.event.client_payload.workflow_run_id }}" | awk -F/ '{print $NF}')
           echo "Workflow Run ID: $run_id"
@@ -43,11 +42,20 @@ jobs:
           else
             pytest
           fi
+
+  Response-Triggered-Tests-E2E:
+    needs: Triggered-Tests-E2E
+    name : Response Triggered Tests E2E
+    outputs:
+      workflow_status: ${{ steps.response_tests_e2e.outputs.workflow_status }}
+    runs-on: ubuntu-latest
+    steps:
       - name: Set Workflow Status
+        id: response_tests_e2e
         run: |
-          if [ ${{ job.status }} == 'success' ]; then
+          if [ "${{ job.status }}" == 'success' ]; then
             echo "Workflow Status: success"
             echo "::set-output name=workflow_status::success"
           else
             echo "Workflow Status: failure"
-            echo "::set-output name=workflow_status::failure"
+            echo "::set-output name=workflow_status::failure"            
