@@ -4,12 +4,23 @@ on:
     types: [trigger-python-plyawright-e2e-tests]
 
 jobs:
-  dispatch:
+  Triggered-Tests-E2E:
+    name : Triggered Tests E2E
+    outputs:
+      run_id: ${{ steps.get_run_id.outputs.run_id }}
+      workflow_status: ${{ steps.run_tests_e2e.outputs.workflow_status }}
     strategy:
       matrix:
         browser: [firefox, chrome, webkit]
     runs-on: ubuntu-latest
     steps:          
+      - name: Get Workflow Run ID
+        id: Starting_e2e_Test_Execution
+        run: |
+          run_id=$(echo "${{ github.event.client_payload.workflow_run_id }}" | awk -F/ '{print $NF}')
+          echo "Workflow Run ID: $run_id"
+          echo "::set-output name=run_id::$run_id"
+  
       - uses: actions/checkout@v3
       - name: Set up Python 3.10
         uses: actions/setup-python@v3
@@ -23,7 +34,7 @@ jobs:
           playwright install
           playwright install-deps   
           
-      - name: Test e2e with playwright
+      - name: Runnig Tests e2e With Playwright
         run: |
           if [ "${{ matrix.browser }}" == "firefox" ]; then
             pytest --browser firefox
@@ -32,3 +43,11 @@ jobs:
           else
             pytest
           fi
+      - name: Set Workflow Status
+        run: |
+          if [ ${{ job.status }} == 'success' ]; then
+            echo "Workflow Status: success"
+            echo "::set-output name=workflow_status::success"
+          else
+            echo "Workflow Status: failure"
+            echo "::set-output name=workflow_status::failure"
