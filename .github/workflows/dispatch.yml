@@ -9,7 +9,7 @@ jobs:
       matrix:
         browser: [firefox, chrome, webkit]
     runs-on: ubuntu-latest
-    if: github.event.client_payload.event-type == 'trigger-python-plyawright-e2e-tests'
+    if: github.event.client_payload.event_type == 'trigger-python-plyawright-e2e-tests'
     steps:          
       - uses: actions/checkout@v3
       - name: Set up Python 3.10
