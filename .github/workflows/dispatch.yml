@@ -8,7 +8,6 @@ jobs:
     name : Running Tests e2e in ${{ matrix.browser }}
     outputs:
       run_id: ${{ steps.get_run_id.outputs.run_id }}
-      workflow_status: ${{ steps.response_tests_e2e.outputs.workflow_status }}  
     strategy:
       matrix:
         browser: [firefox, chrome, webkit]
@@ -47,6 +46,8 @@ jobs:
     needs: Triggered-Tests-E2E
     name : Response Triggered Tests E2E
     runs-on: ubuntu-latest  
+    outputs:
+      workflow_status: ${{ steps.response_tests_e2e.outputs.workflow_status }}  
     steps:
       - uses: actions/checkout@v3      
       - name: Set Workflow Status
