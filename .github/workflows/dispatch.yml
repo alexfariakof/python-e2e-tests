@@ -18,7 +18,7 @@ jobs:
         id: get_run_id
         run: |
           echo "Workflow Run ID: ${{ github.run_id }}"
-          echo "run_id=${{ github.run_id }}" >> $GITHUB_OUTPUT
+          echo "run_id=${{ github.run_id }}" >> $GITHUB_ENV
         
       - name: Set up Python 3.10
         uses: actions/setup-python@v3
