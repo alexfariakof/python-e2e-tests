@@ -11,8 +11,7 @@ jobs:
       workflow_status: ${{ steps.response_tests_e2e.outputs.workflow_status }}  
     strategy:
       matrix:
-        #browser: [firefox, chrome, webkit]
-        browser: [webkit]
+        browser: [firefox, chrome, webkit]
     runs-on: ubuntu-latest  
     steps:          
       - uses: actions/checkout@v3
