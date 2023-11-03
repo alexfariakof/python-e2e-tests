@@ -18,8 +18,8 @@ jobs:
         id: get_run_id
         run: |
           run_id=$(echo "${{ github.event.client_payload.workflow_run_id }}" | awk -F/ '{print $NF}')
-          echo "Workflow Run ID: {$run_id}"
-          echo "run_id={$run_id}" >> $GITHUB_ENV
+          echo "Workflow Run ID: $run_id"
+          echo "{run_id}={$run_id}" >> $GITHUB_OUTPUT
         
       - name: Set up Python 3.10
         uses: actions/setup-python@v3
@@ -54,9 +54,9 @@ jobs:
       - name: Set Workflow Status
         id: response_tests_e2e
         run: |
-          if [ "${{ job.status }}" == "success" ]; then
+          if [ "${{ job.status }}" == 'success' ]; then
             echo "Workflow Status: success"
-            echo "workflow_status=success" >> $GITHUB_ENV
+            echo "{workflow_status}={success}" >> $GITHUB_OUTPUT
           else
             echo "Workflow Status: failure"
-            echo "workflow_status=failure" >> $GITHUB_ENV
+            echo "{workflow_status}={failure}" >> $GITHUB_OUTPUT
