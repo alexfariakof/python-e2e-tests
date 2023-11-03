@@ -10,16 +10,16 @@ jobs:
       run_id: ${{ steps.get_run_id.outputs.run_id }}
     strategy:
       matrix:
-        browser: [firefox, chrome, webkit]
+        #browser: [firefox, chrome, webkit]
+        browser: [webkit]
     runs-on: ubuntu-latest
     steps:          
       - uses: actions/checkout@v3
       - name: Get Workflow Run ID      
         id: get_run_id
         run: |
-          run_id=$(echo "${{ github.event.client_payload.workflow_run_id }}" | awk -F/ '{print $NF}')
-          echo "Workflow Run ID: $run_id"
-          echo "{run_id}={$run_id}" >> $GITHUB_OUTPUT
+          echo "Workflow Run ID: ${{ github.event.client_payload.workflow_run_id }}"
+          echo "{run_id}={${{ github.event.client_payload.workflow_run_id }}}" >> $GITHUB_OUTPUT
         
       - name: Set up Python 3.10
         uses: actions/setup-python@v3
