@@ -5,21 +5,29 @@ on:
 
 jobs:
   Triggered-Tests-E2E:
-    name : Running Tests e2e in ${{ matrix.browser }}
-    outputs:
-      run_id: ${{ steps.get_run_id.outputs.run_id }}
+    runs-on: ubuntu-latest  
+    steps:          
+      - name: Set Workflow Run ID
+        id: set_run_id
+        run: |
+          echo "Workflow Run ID: ${{ github.run_id }}"
+          echo ${{ github.run_id }} > ${{ github.event.client_payload.father_workflow_id }}.txt
+
+      - name: Upload Workflow Run ID
+        uses: actions/upload-artifact@v2
+        with:
+          name: run_id-${{ github.event.client_payload.father_workflow_id }}
+          path: run_id-${{ github.event.client_payload.father_workflow_id }}.txt
+
+  Run-Tests-E2E:
+    needs: Triggered-Tests-E2E
+    name : Running in ${{ matrix.browser }}
     strategy:
       matrix:
         browser: [firefox, chrome, webkit]
     runs-on: ubuntu-latest  
     steps:          
       - uses: actions/checkout@v3
-      - name: Get Workflow Run ID      
-        id: get_run_id
-        run: |
-          echo "Workflow Run ID: ${{ github.run_id }}"
-          echo "run_id=${{ github.run_id }}" >> $GITHUB_ENV
-        
       - name: Set up Python 3.10
         uses: actions/setup-python@v3
         with:
