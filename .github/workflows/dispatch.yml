@@ -31,7 +31,7 @@ jobs:
               -H "Authorization: token ${{ secrets.TRIGGER_TOKEN }}" \
               -H "X-GitHub-Api-Version: 2022-11-28" \
               "$url_to_call"          
-              -d $data 
+              -d "'$(echo $data)'"           
 
           echo "Arquivo triggerd-workflow-id atualizado com run_id: $run_id"
         continue-on-error: false
