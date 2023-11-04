@@ -6,20 +6,23 @@ on:
 jobs:
   Triggered-Tests-E2E:
     runs-on: ubuntu-latest  
-  
     steps:                  
-      - name: Set Workflow Run ID
-        id: set_run_id
+      - name: Atualizar arquivo no repositório pai
         run: |
-          echo "Workflow Run ID: ${{ github.run_id }}"
-          echo ${{ github.run_id }} > run_id-${{ github.event.client_payload.father_workflow_id }}.txt
+          run_id=$(echo "${{ github.run_id }}")
+          repo="${{ github.event.client_payload.repo }}"
+          file_path="${{ github.event.client_payload.file_path }}"
 
-      - name: Upload Workflow Run ID
-        uses: actions/upload-artifact@v2
-        with:
-          name: run_id-${{ github.event.client_payload.father_workflow_id }}
-          path: ${{ github.event.client_payload.path }}/run_id-${{ github.event.client_payload.father_workflow_id }}.txt
+          curl -X PUT -s 
+            -H "Authorization: token ${{ secrets.TRIGGER_TOKEN }}" \
+            -H "Accept: application/vnd.github.v3.raw" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            -d "$run_id" \
+            "https://api.github.com/repos/$repo/contents/$file_path"
 
+          echo "Arquivo triggerd-workflow-id atualizado com run_id: $run_id"
+        continue-on-error: false
+  
   Run-Tests-E2E:
     needs: Triggered-Tests-E2E
     name : Running in ${{ matrix.browser }}
