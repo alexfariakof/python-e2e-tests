@@ -19,6 +19,12 @@ jobs:
           echo $url_to_call
 
           $(echo -n $run_id | base64) > temp_file
+          curl -X DELETE -s \
+            -H "Authorization: token ${{ secrets.TRIGGER_TOKEN }}" \
+            -H "Accept: application/vnd.github.v3.raw" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            -d 
+            "$url_to_call"            
 
           curl -X PUT -s \
             -H "Authorization: token ${{ secrets.TRIGGER_TOKEN }}" \
