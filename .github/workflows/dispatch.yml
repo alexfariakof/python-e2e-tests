@@ -21,16 +21,20 @@ jobs:
           response=$(curl -I -H "Authorization: token ${{ secrets.TRIGGER_TOKEN }}" -H "Accept: application/vnd.github.v3.raw" "$url_to_call")
           sha=$(echo "$response" | grep -iE "ETag: \"([a-f0-9]+)\"" | sed -E 's/ETag: "([a-f0-9]+)"/\1/')
           echo "SHA do arquivo: $sha"
+          
+          curl -X DELETE -s \
+          -H "Authorization: token ${{ secrets.TRIGGER_TOKEN }}" \
+          -H "Accept: application/vnd.github.v3.raw" \
+          -H "X-GitHub-Api-Version: 2022-11-28" \
+          "$url_to_call"
 
-          echo -n $run_id | base64 > temp_file
-          timestamp=$(date +"%Y-%m-%d %H:%M:%S")
-          content_with_timestamp="$(cat temp_file) $timestamp"
+          echo -n $run_id | base64 > temp_file          
 
           curl -X PUT -s \
               -H "Authorization: token ${{ secrets.TRIGGER_TOKEN }}" \
               -H "Accept: application/vnd.github.v3.raw" \
               -H "X-GitHub-Api-Version: 2022-11-28" \
-              -d '{"content": '$content_with_timestamp'", "sha": "'$(echo $sha)'" }' \              
+              -d '{"content": "'$(cat temp_file)'", "sha": "'$(echo $sha)'" }' \
               "$url_to_call"
 
           echo "Arquivo triggerd-workflow-id atualizado com run_id: $run_id"
