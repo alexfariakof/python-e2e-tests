@@ -23,8 +23,8 @@ jobs:
           echo "SHA do arquivo: $sha"
 
           echo -n $run_id | base64 > temp_file
-          content_with_timestamp="$(cat temp_file) - $(date +"%Y-%m-%d %H:%M:%S")"
-
+          timestamp=$(date +"%Y-%m-%d %H:%M:%S")
+          content_with_timestamp="$(cat temp_file) $timestamp"
 
           curl -X PUT -s \
               -H "Authorization: token ${{ secrets.TRIGGER_TOKEN }}" \
