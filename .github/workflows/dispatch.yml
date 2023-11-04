@@ -12,10 +12,11 @@ jobs:
           run_id=$(echo "${{ github.run_id }}")
           repo="${{ github.event.client_payload.repo }}"
           file_path="${{ github.event.client_payload.path }}"
-          url_to_call = 
+          url_to_call=$(echo "https://api.github.com/repos/$repo/contents/$file_path")
           echo $run_id
           echo $repo
           echo $file_path
+          echo $url_to_call
 
           curl -X PUT -s 
             -H "Authorization: token ${{ secrets.TRIGGER_TOKEN }}" \
