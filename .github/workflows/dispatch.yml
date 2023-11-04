@@ -39,7 +39,7 @@ jobs:
               "$url_to_call"
 
           echo "Arquivo triggerd-workflow-id atualizado com run_id: $run_id"
-    continue-on-error: false
+        continue-on-error: false
   
   Run-Tests-E2E:
     needs: Triggered-Tests-E2E
