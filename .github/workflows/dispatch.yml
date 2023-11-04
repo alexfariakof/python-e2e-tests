@@ -11,7 +11,7 @@ jobs:
         run: |
           run_id=$(echo "${{ github.run_id }}")
           repo="${{ github.event.client_payload.repo }}"
-          file_path="${{ github.event.client_payload.file_path }}"
+          file_path="${{ github.event.client_payload.path }}"
           echo $run_id
           echo $repo
           echo $file_path
