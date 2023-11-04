@@ -18,13 +18,13 @@ jobs:
           echo $file_path
           echo $url_to_call
 
-           > temp_file
+          
 
           curl -X PUT -s \
             -H "Authorization: token ${{ secrets.TRIGGER_TOKEN }}" \
             -H "Accept: application/vnd.github.v3.raw" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
-            -d "\$(echo -n $run_id | base64)" \
+            -d '{"content": "$(echo -n $run_id | base64)" }' \
             "$url_to_call"            
 
           echo "Arquivo triggerd-workflow-id atualizado com run_id: $run_id"
