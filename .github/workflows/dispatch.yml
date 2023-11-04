@@ -24,7 +24,7 @@ jobs:
 
           echo -n $run_id | base64 > temp_file
 
-          update_data='{"message": "Atualizar arquivo", "content": "'$(cat temp_file | base64 -w0)'", "sha": "'$sha'"}'
+          update_data='{"content": "'$(cat temp_file | base64 -w0)'", "sha": "'$sha'"}'
 
           curl -X PUT -s \
               -H "Authorization: token ${{ secrets.TRIGGER_TOKEN }}" \
