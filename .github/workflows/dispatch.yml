@@ -23,7 +23,8 @@ jobs:
           echo "SHA do arquivo: $sha"
           
           echo -n $run_id | base64 > temp_file          
-          data='{"message":"Update Workflow ID","committer": {"name":"${{ github.repository_owner	 }}","email":"alexfariakof@gmail.com"}, "content": "'$(cat temp_file)'"}'
+          data='{"message": "Update Workflow ID", "committer": {"name": "${{ github.repository_owner }}", "email": "alexfariakof@gmail.com"}, "content": "'$(cat temp_file)'"}'
+
           echo $data
           curl -L \
               -X PUT \
