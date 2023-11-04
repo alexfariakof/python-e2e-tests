@@ -19,7 +19,7 @@ jobs:
           echo $url_to_call
 
           response=$(curl -I -H "Authorization: token ${{ secrets.TRIGGER_TOKEN }}" -H "Accept: application/vnd.github.v3.raw" "$url_to_call")
-          sha=$(echo "$response" | grep -iE "ETag: \"([a-f0-9]+)\"" | sed -E 's/ETag: "([a-f0-9]+)"/\1/' | tr -d '[:space:]')
+          sha=$(echo "$response" | grep -iE "etag \"([a-f0-9]+)\"" | sed -E 's/etag: "([a-f0-9]+)"/\1/')
 
           echo "SHA do arquivo: $sha"
           
