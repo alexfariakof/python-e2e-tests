@@ -18,24 +18,18 @@ jobs:
           echo $file_path
           echo $url_to_call
 
-          echo -n $run_id | base64 > temp_file
-          
-          existing_content=$(curl -H "Authorization: token ${{ secrets.TRIGGER_TOKEN }}" -H "Accept: application/vnd.github.v3.raw" "$url_to_call")
+          sha=$(curl -H "Authorization: token ${{ secrets.TRIGGER_TOKEN }}" -H "Accept: application/vnd.github.v3.raw" "$url_to_call" | jq -r '.sha')
+          echo "SHA do arquivo: $sha"
 
-          if [ -z "$existing_content" ]; then
-            echo "O arquivo não existe. Não é possível excluí-lo."
-          else
-            curl -X DELETE -s \
-              -H "Authorization: token ${{ secrets.TRIGGER_TOKEN }}" \
-              -H "Accept: application/vnd.github.v3.raw" \
-              -H "X-GitHub-Api-Version: 2022-11-28" \
-              "$url_to_call"
-          fi
+          echo -n $run_id | base64 > temp_file
+
+          update_data='{"message": "Atualizar arquivo", "content": "'$(cat temp_file | base64 -w0)'", "sha": "'$sha'"}'
+
           curl -X PUT -s \
               -H "Authorization: token ${{ secrets.TRIGGER_TOKEN }}" \
               -H "Accept: application/vnd.github.v3.raw" \
               -H "X-GitHub-Api-Version: 2022-11-28" \
-              -d '{"content": "'$(cat temp_file)'" }' \
+              -d "$update_data" \
               "$url_to_call"
 
           echo "Arquivo triggerd-workflow-id atualizado com run_id: $run_id"
