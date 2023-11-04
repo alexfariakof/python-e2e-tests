@@ -13,11 +13,18 @@ jobs:
           repo="${{ github.event.client_payload.repo }}"
           file_path="${{ github.event.client_payload.path }}"
           url_to_call=$(echo "https://api.github.com/repos/$repo/contents/$file_path")
+          echo $run_id
+          echo $repo
+          echo $file_path
+          echo $url_to_call
 
           response=$(curl -I -H "Authorization: token ${{ secrets.TRIGGER_TOKEN }}" -H "Accept: application/vnd.github.v3.raw" "$url_to_call")
           sha=$(echo "$response" | sed -n 's/.*etag: "\(.*\)".*/\1/p')
+
           echo -n $run_id | base64 > temp_file          
           data='{"message": "Update Workflow ID", "committer": {"name": "${{ github.repository_owner }}", "email": "alexfariakof@gmail.com"}, "content": "'$(cat temp_file)'", "sha": "'$(echo $sha)'"}'
+
+          echo $data
           curl -L \
               -X PUT \
               -H "Accept: application/vnd.github+json" \
