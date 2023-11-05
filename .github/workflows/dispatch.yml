@@ -11,7 +11,7 @@ jobs:
         run: |
           run_id=$(echo "${{ github.run_id }}")
           repo="${{ github.event.client_payload.repo }}"
-          file_name=$(echo "triggered-workflow-id-"$run_id) 
+          file_name=$(echo "triggered-workflow-id-${{ github.event.client_payload.father_workflow_id }}") 
           echo $file_name
           file_path="${{ github.event.client_payload.path }}"
           url_to_call=$(echo "https://api.github.com/repos/$repo/contents/$file_path/$file_name")
