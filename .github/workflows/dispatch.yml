@@ -72,3 +72,4 @@ jobs:
         id: response_tests_e2e
         run: |
           echo "workflow_status=${{ job.status }}" >> $GITHUB_OUTPUT
+          exit 1
