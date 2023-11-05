@@ -1,3 +1,4 @@
+name: Run Tests e2e
 on:
   push:
     branches: [ main ]
