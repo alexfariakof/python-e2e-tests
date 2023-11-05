@@ -12,7 +12,6 @@ jobs:
           run_id=$(echo "${{ github.run_id }}")
           repo="${{ github.event.client_payload.repo }}"
           file_name=$(echo "triggered-workflow-id-${{ github.event.client_payload.father_workflow_id }}") 
-          echo $file_name
           file_path="${{ github.event.client_payload.path }}"
           url_to_call=$(echo "https://api.github.com/repos/$repo/contents/$file_path/$file_name")
 
@@ -35,8 +34,7 @@ jobs:
     name : Running in ${{ matrix.browser }}
     strategy:
       matrix:
-        #browser: [firefox, chrome, webkit]
-        browser: [firefox]
+        browser: [firefox, chrome, webkit]
     runs-on: ubuntu-latest  
     steps:          
       - uses: actions/checkout@v3
@@ -73,4 +71,5 @@ jobs:
       - name: Set Workflow Status
         id: response_tests_e2e
         run: |
+          exit(1)
           echo "workflow_status=${{ job.status }}" >> $GITHUB_OUTPUT
