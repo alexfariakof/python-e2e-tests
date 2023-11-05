@@ -32,7 +32,8 @@ jobs:
               -H "X-GitHub-Api-Version: 2022-11-28" \
               -d "$data" \
               "$url_to_call"          
-
+          git config --global user.email "alexfariakof@gmail.com"
+          git config --global user.name "Alex Ribeiro de Faria"
           git add .
           git commit -m "Atualizar arquivo de ID de fluxo de trabalho"
           git push          
