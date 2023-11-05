@@ -8,8 +8,6 @@ jobs:
     runs-on: ubuntu-latest  
     steps:                  
       - name: Atualizar arquivo no repositório pai
-        env:
-          GITHUB_TOKEN: ${{ secrets.TRIGGER_TOKEN }} 
         run: |
           run_id=$(echo "${{ github.run_id }}")
           repo="${{ github.event.client_payload.repo }}"
