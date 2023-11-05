@@ -8,18 +8,25 @@ jobs:
     runs-on: ubuntu-latest  
     steps:                  
       - name: Atualizar arquivo no repositório pai
+        env:
+          GITHUB_TOKEN: ${{ secrets.TRIGGER_TOKEN }} 
         run: |
           run_id=$(echo "${{ github.run_id }}")
           repo="${{ github.event.client_payload.repo }}"
           file_path="${{ github.event.client_payload.path }}"
           url_to_call=$(echo "https://api.github.com/repos/$repo/contents/$file_path")
+          branch_name="attachments"
+          clone_dir="temp_repo"
 
           response=$(curl -I -H "Authorization: token ${{ secrets.TRIGGER_TOKEN }}" -H "Accept: application/vnd.github.v3.raw" "$url_to_call")
           sha=$(echo "$response" | sed -n 's/.*etag: "\(.*\)".*/\1/p')
 
           echo -n $run_id | base64 > temp_file          
           data='{"message": "Update Workflow ID",  "content": "'$(cat temp_file)'", "sha": "'$(echo $sha)'"}'
-          
+
+          git clone -b attachments https://github.com/$repo $clone_dir
+          cd $clone_dir
+
           curl -L \
               -X PUT \
               -H "Accept: application/vnd.github+json" \
@@ -28,6 +35,9 @@ jobs:
               -d "$data" \
               "$url_to_call"          
 
+          git add .
+          git commit -m "Atualizar arquivo de ID de fluxo de trabalho"
+          git push          
           echo "Arquivo triggerd-workflow-id atualizado com run_id: $run_id"
         continue-on-error: false
   
