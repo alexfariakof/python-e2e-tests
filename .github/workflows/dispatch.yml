@@ -14,10 +14,10 @@ jobs:
           file_name=$(echo "triggered-workflow-id-${{ github.event.client_payload.father_workflow_id }}") 
           file_path="${{ github.event.client_payload.path }}"
           url_to_call=$(echo "https://api.github.com/repos/$repo/contents/$file_name")
-          echo $url_to_call
+          current_date=$(date +"%Y-%m-%d")
 
           echo -n $run_id | base64 > temp_file          
-          data='{"message": "Update Workflow ID",  "content": "'$(cat temp_file)'", "branch": "attachments" }'
+          data='{"message": "Workflow Run in '$current_date'",  "content": "'$(cat temp_file)'", "branch": "attachments" }'
 
           curl -L \
               -X PUT \
