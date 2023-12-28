@@ -15,7 +15,6 @@
     "recommendations": [
       "ms-python.python",
       "ms-python.flake8",
-      "ms-python.pylint"
     ]
   }
 }

@@ -3,3 +3,4 @@ pytest
 pytest-playwright
 pytest-html
 Faker
+junitparser
