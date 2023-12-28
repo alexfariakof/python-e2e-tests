@@ -1,10 +1,10 @@
-name: Execute Workflow Tests E2E
+name: Workflow React E2E
 on:
   repository_dispatch:
     types: [trigger-react-e2e-tests]
 
 jobs:
-  Triggered-Tests-E2E:
+  Triggered-React-E2E:
     runs-on: ubuntu-latest  
     steps:                  
       - name: Atualizar arquivo no repositório pai
@@ -56,11 +56,11 @@ jobs:
       - name: Runnig Tests e2e With Playwright
         run: |
           if [ "${{ matrix.browser }}" == "firefox" ]; then
-            py -m pytest __tests__/.frontend_react --browser firefox
+            python -m pytest __tests__/.frontend_react --browser firefox
           elif [ "${{ matrix.browser }}" == "chrome" ]; then
-            py -m pytest __tests__/.frontend_react --browser chromium
+            python -m pytest __tests__/.frontend_react --browser chromium
           else
-            py -m pytest __tests__/.frontend_react
+            python -m pytest __tests__/.frontend_react
           fi
 
   Response-Triggered-Tests-E2E:

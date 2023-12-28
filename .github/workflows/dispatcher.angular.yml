@@ -1,4 +1,4 @@
-name: Execute Workflow Tests E2E
+name: Workflow Angular E2E
 on:
   push:
     branch:
@@ -8,7 +8,7 @@ on:
     types: [trigger-angular-e2e-tests]
 
 jobs:
-  Triggered-Tests-E2E:
+  Triggered-Angular-E2E:
     runs-on: ubuntu-latest  
     steps:                  
       - name: Atualizar arquivo no repositório pai
@@ -60,11 +60,11 @@ jobs:
       - name: Runnig Tests e2e With Playwright
         run: |
           if [ "${{ matrix.browser }}" == "firefox" ]; then
-            py -m pytest --env=dev __tests__/.frontend_angular --browser firefox
+            python -m pytest --env=dev __tests__/.frontend_angular --browser firefox
           elif [ "${{ matrix.browser }}" == "chrome" ]; then
-            py -m pytest --env=dev __tests__/.frontend_angular --browser chromium
+            python -m pytest --env=dev __tests__/.frontend_angular --browser chromium
           else
-            py -m pytest --env=dev __tests__/.frontend_angular
+            python -m pytest --env=dev __tests__/.frontend_angular
           fi
 
   Response-Triggered-Tests-E2E:
