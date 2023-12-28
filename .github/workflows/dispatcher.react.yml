@@ -1,7 +1,7 @@
 name: Execute Workflow Tests E2E
 on:
   repository_dispatch:
-    types: [trigger-python-plyawright-e2e-tests]
+    types: [trigger-react-e2e-tests]
 
 jobs:
   Triggered-Tests-E2E:
@@ -48,7 +48,7 @@ jobs:
       - name: Install Python Dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install pytest pytest-playwright
+          pip install pytest pytest-playwright Faker request
           playwright install
           playwright install-deps   
           

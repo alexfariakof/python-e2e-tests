@@ -1,7 +1,10 @@
 name: Execute Workflow Tests E2E
 on:
+  push:
+    branch:
+      - feature/WF-FE-Create-Account-Angular
   repository_dispatch:
-    types: [trigger-python-plyawright-e2e-tests]
+    types: [trigger-api-e2e-tests]
 
 jobs:
   Triggered-Tests-E2E:
@@ -48,18 +51,18 @@ jobs:
       - name: Install Python Dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install pytest pytest-playwright
+          pip install pytest pytest-playwright Faker request
           playwright install
           playwright install-deps   
           
       - name: Runnig Tests e2e With Playwright
         run: |
           if [ "${{ matrix.browser }}" == "firefox" ]; then
-            py -m pytest __tests__/.backend --browser firefox
+            py -m pytest --env=dev __tests__/.backend --browser firefox
           elif [ "${{ matrix.browser }}" == "chrome" ]; then
-            py -m pytest __tests__/.backend --browser chromium
+            py -m pytest --env=dev __tests__/.backend --browser chromium
           else
-            py -m pytest __tests__/.backend
+            py -m pytest --env=dev __tests__/.backend
           fi
 
   Response-Triggered-Tests-E2E:
