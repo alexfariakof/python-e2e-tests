@@ -55,11 +55,11 @@ jobs:
       - name: Runnig Tests e2e With Playwright
         run: |
           if [ "${{ matrix.browser }}" == "firefox" ]; then
-            py -m pytest __tests__/.frontend_angular --browser firefox
+            py -m pytest __tests__/.frontend_react --browser firefox
           elif [ "${{ matrix.browser }}" == "chrome" ]; then
-            py -m pytest __tests__/.frontend_angular --browser chromium
+            py -m pytest __tests__/.frontend_react --browser chromium
           else
-            py -m pytest __tests__/.frontend_angular
+            py -m pytest __tests__/.frontend_react
           fi
 
   Response-Triggered-Tests-E2E:

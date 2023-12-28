@@ -1,0 +1,12 @@
+py -m pytest --env=local  __tests__/.frontend_angular --browser firefox 
+py -m pytest --env=dev  __tests__/.frontend_angular --browser firefox 
+py -m pytest --env=prod  __tests__/.frontend_angular --browser firefox 
+
+py -m pytest --env=local  __tests__/.frontend_react --browser firefox 
+py -m pytest --env=dev  __tests__/.frontend_react --browser firefox 
+py -m pytest --env=prod  __tests__/.frontend_react --browser firefox 
+
+
+py -m pytest --env=local  __tests__/.backend
+py -m pytest --env=dev  __tests__/.backend
+py -m pytest --env=prod  __tests__/.backend
