@@ -50,10 +50,11 @@ jobs:
   
       - name: Install Python Dependencies
         run: |
-          pip install pytest pytest-playwright Faker request
+          pip install pytest pytest-playwright
           playwright install
           playwright install-deps   
-          
+          pip install Faker
+
       - name: Runnig Tests e2e With Playwright
         run: |
           if [ "${{ matrix.browser }}" == "firefox" ]; then
