@@ -11,7 +11,7 @@ report_paths = [
 
 html_paths = [
     './coverage/backend_index.html',
-    './coverage/frontend_angular_index.html',    
+    './coverage/frontend_angular_index.html',
     './coverage/frontend_react_index.html',
 ]
 
@@ -36,7 +36,6 @@ with open(combined_html_path, 'w') as combined_html:
     for html_path in html_paths:
         with open(html_path, 'r') as html_file:
             soup = BeautifulSoup(html_file, 'html.parser')
-            
             combined_html.write(str(soup))
 
     # Adiciona a estrutura final do HTML
