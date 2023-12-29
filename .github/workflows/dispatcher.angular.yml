@@ -1,10 +1,14 @@
-name: Execute Workflow Tests E2E
+name: Workflow Angular E2E
 on:
+  push:
+    branch:
+      - feature/WF-FE-Create-Account-Angular
+
   repository_dispatch:
-    types: [trigger-python-plyawright-e2e-tests]
+    types: [trigger-angular-e2e-tests]
 
 jobs:
-  Triggered-Tests-E2E:
+  Triggered-Angular-E2E:
     runs-on: ubuntu-latest  
     steps:                  
       - name: Atualizar arquivo no repositório pai
@@ -32,7 +36,7 @@ jobs:
         continue-on-error: false
   
   Run-Tests-E2E:
-    needs: Triggered-Tests-E2E
+    needs: Triggered-Angular-E2E
     name : Running in ${{ matrix.browser }}
     strategy:
       matrix:
@@ -47,19 +51,20 @@ jobs:
   
       - name: Install Python Dependencies
         run: |
-          python -m pip install --upgrade pip
+          python -m pip install --upgrade pip          
           pip install pytest pytest-playwright
           playwright install
           playwright install-deps   
+          pip install Faker
           
       - name: Runnig Tests e2e With Playwright
         run: |
           if [ "${{ matrix.browser }}" == "firefox" ]; then
-            py --env=local -m pytest __tests__/.frontend_angular --browser firefox
+            python -m pytest --env=dev __tests__/.frontend_angular --browser firefox
           elif [ "${{ matrix.browser }}" == "chrome" ]; then
-            py -m pytest __tests__/.frontend_angular --browser chromium
+            python -m pytest --env=dev __tests__/.frontend_angular --browser chromium
           else
-            py -m pytest __tests__/.frontend_angular
+            python -m pytest --env=dev __tests__/.frontend_angular
           fi
 
   Response-Triggered-Tests-E2E:
