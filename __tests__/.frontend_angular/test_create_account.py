@@ -44,13 +44,17 @@ def test_angular_create_account_with_password_mismatch(page: Page, config):
     page.fill('input[name=confirmaSenha]', fake.password())
 
     # Act
-    page.click('button[type=submit]')
+    """ page.click('button[type=submit]')
 
     # Assert
     page.wait_for_selector("app-alert-component")
     expect(page.locator("app-alert-component")).to_be_visible()
     text_alert_component = page.locator(".alert .alert-danger")
-    assert text_alert_component.inner_text().strip() == 'Senha e Confirma Senha são diferentes!'
+    assert text_alert_component.inner_text().strip() == 'Senha e Confirma Senha são diferentes!'    
+    """
+    # Assert
+    submit_button = page.locator('button[type=submit]')
+    assert submit_button.is_disabled()
 
 
 def test_angular_create_account_user_exists(page: Page, config):
@@ -75,4 +79,4 @@ def test_angular_create_account_user_exists(page: Page, config):
     expect(page.locator("app-alert-component")).to_be_visible()
     text_alert_component = page.locator(".alert .alert-danger")
     print(text_alert_component.inner_text())
-    assert text_alert_component.inner_text().strip() == 'Não foi possível realizar o cadastro.'
+    assert text_alert_component.inner_text().strip() == 'Usuário já cadastrado!'

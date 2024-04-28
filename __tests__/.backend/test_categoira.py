@@ -7,7 +7,7 @@ fake = Faker()
 API_END_POINT = "Categoria"
 
 
-def test_create_category(config):
+def test_create_category(config: str):
     """ Test POST Categoria Endpoint """
     api_endpoint = f"{config}/{API_END_POINT}"
 
@@ -23,12 +23,9 @@ def test_create_category(config):
 
     response = requests.post(api_endpoint, json=new_category, headers=headers)
     response.raise_for_status()
-
     result = response.json()
-    assert "message" in result
-    assert result["message"] is True
-    assert "categoria" in result
-    created_category = result["categoria"]
+    assert result is not None
+    created_category = result
     assert "id" in created_category
     assert "descricao" in created_category
     assert created_category["descricao"] == new_category["descricao"]
@@ -36,7 +33,7 @@ def test_create_category(config):
     assert created_category["idTipoCategoria"] == 1
 
 
-def test_update_category(config):
+def test_update_category(config: str):
     """ Test PUT Categoria Endpoint """
     api_endpoint = f"{config}/{API_END_POINT}"
 
@@ -54,12 +51,9 @@ def test_update_category(config):
     response = requests.post(api_endpoint, json=new_category, headers=headers)
     response.raise_for_status()
     created_category = response.json()
-
+    assert created_category is not None
     result = response.json()
-    assert "message" in result
-    assert result["message"] is True
-    assert "categoria" in result
-    created_category = result["categoria"]
+    created_category = result
 
     # Updating the category
     updated_category = {
@@ -73,10 +67,8 @@ def test_update_category(config):
 
     assert response.status_code == 200
     updated_category = response.json()
-    assert "message" in updated_category
-    assert updated_category["message"] is True
-    assert "categoria" in updated_category
-    updated_category = result["categoria"]
+    assert updated_category is not None
+    updated_category = result
     assert "id" in updated_category
     assert "descricao" in updated_category
     assert updated_category["descricao"] == new_category["descricao"]
@@ -84,7 +76,7 @@ def test_update_category(config):
     assert updated_category["idTipoCategoria"] == 1
 
 
-def test_delete_category(config):
+def test_delete_category(config: str):
     """ Test DELETE Categoria Endpoint"""
     api_endpoint = f"{config}/{API_END_POINT}"
     new_category = {
@@ -100,10 +92,8 @@ def test_delete_category(config):
     response = requests.post(api_endpoint, json=new_category, headers=headers)
     response.raise_for_status()
     result = response.json()
-    assert "message" in result
-    assert result["message"] is True
-    assert "categoria" in result
-    created_category = result["categoria"]
+    assert result is not None
+    created_category = result
 
     # Deleting the category
     response = requests.delete(f"{api_endpoint}/{created_category['id']}", headers=headers)
@@ -111,11 +101,10 @@ def test_delete_category(config):
 
     assert response.status_code == 200
     deleted_category = response.json()
-    assert "message" in deleted_category
-    assert deleted_category["message"] is True
+    assert deleted_category is True
 
 
-def test_get_categories(config):
+def test_get_categories(config: str):
     """ Test GET Categoria Endpoint """
     api_endpoint = f"{config}/{API_END_POINT}"
 
@@ -131,7 +120,7 @@ def test_get_categories(config):
     assert isinstance(categories, list)
 
 
-def test_get_category_by_id(config):
+def test_get_category_by_id(config: str):
     """  Test GET Categoria/GetById Endpoint """
     api_endpoint = f"{config}/{API_END_POINT}"
     new_category = {
@@ -147,10 +136,8 @@ def test_get_category_by_id(config):
     response = requests.post(api_endpoint, json=new_category, headers=headers)
     response.raise_for_status()
     result = response.json()
-    assert "message" in result
-    assert result["message"] is True
-    assert "categoria" in result
-    created_category = result["categoria"]
+    assert result is not None
+    created_category = result
     id_categoria = created_category['id']
 
     api_endpoint = f"{config}/{API_END_POINT}/GetById/{id_categoria}"
@@ -172,7 +159,7 @@ def test_get_category_by_id(config):
     assert category["idTipoCategoria"] == created_category["idTipoCategoria"]
 
 
-def test_get_category_by_tipo_categoria(config):
+def test_get_category_by_tipo_categoria(config: str):
     """ Test E2E Backend API Categoria Endpoint - GET Categoria/GetByTipoCategoria/1 """
     api_endpoint = f"{config}/{API_END_POINT}/GetByTipoCategoria/1"
 

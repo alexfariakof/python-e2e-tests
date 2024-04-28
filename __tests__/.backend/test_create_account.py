@@ -6,7 +6,7 @@ fake = Faker()
 API_END_POINT = "ControleAcesso"
 
 
-def test_api_create_account_success(config):
+def test_api_create_account_success(config: str):
     # Arrange
     password = fake.password()
     data = {
@@ -17,17 +17,18 @@ def test_api_create_account_success(config):
         "senha": password,
         "confirmaSenha": password,
     }
-    
+
     # Act
     response = requests.post(f"{config}/{API_END_POINT}", json=data)
     response.raise_for_status()
     result = response.json()
 
-    # Assert 
-    assert "message" in result and result["message"] is True
+    # Assert
+    assert result is not None
+    assert result is True
 
 
-def test_api_create_account_invalid_email(config):
+def test_api_create_account_invalid_email(config: str):
     # Arrange
     password = fake.password()
     data = {
@@ -43,12 +44,15 @@ def test_api_create_account_invalid_email(config):
     response = requests.post(f"{config}/{API_END_POINT}", json=data)
     result = response.json()
 
-    # Assert 
-    assert "message" in result and result["message"] == "Email inválido!"
+    # Assert
+    assert result is not None
+    assert "errors" in result
+    assert "Email" in result["errors"]
+    assert result["errors"]["Email"][0] == "O campo Email é inválido."
 
 
-def test_api_create_account_password_mismatch(config):
-    # Arrange 
+def test_api_create_account_password_mismatch(config: str):
+    # Arrange
     data = {
         "nome": fake.first_name(),
         "sobreNome": fake.last_name(),
@@ -63,10 +67,12 @@ def test_api_create_account_password_mismatch(config):
     result = response.json()
 
     # Assert
-    assert "message" in result and result["message"] == "Senha e Confirma Senha são diferentes!"
+    assert result is not None
+    assert "errors" in result
+    assert result["errors"][""][0] == "Senha e Confirma Senha são diferentes!"
 
 
-def test_api_create_account_user_exists(config):
+def test_api_create_account_user_exists(config: str):
     # Arrange
     password = fake.password()
     data = {
@@ -78,9 +84,8 @@ def test_api_create_account_user_exists(config):
         "confirmaSenha": password,
     }
 
-    # Act 
+    # Act
     response = requests.post(f"{config}/{API_END_POINT}", json=data)
-    result = response.json()
-
+    
     # Assert
-    assert "message" in result and result["message"] == "Não foi possível realizar o cadastro."
+    assert response.status_code == 400
